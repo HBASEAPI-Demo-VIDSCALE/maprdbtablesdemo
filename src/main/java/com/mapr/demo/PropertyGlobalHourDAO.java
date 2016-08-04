@@ -4,6 +4,7 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -150,4 +151,26 @@ public class PropertyGlobalHourDAO {
         return data.getAccountId()+"_"+data.getGroupId()+"_"+data.getEpochStart()
                 +"_"+data.getFlowDir()+"_"+data.getProperty()+"_"+data.getServiceType();
     }
+    //To upsert/increment a unique visitors column value
+    public Result uniqvisIncrement(String rowKey, long amount) throws Exception {
+		
+    	Result result = null;
+    	Table table = null;
+    	try{
+    		Increment inc = new Increment(Bytes.toBytes(rowKey));
+    		//add the amount value to the current value in the column, if want to decrease just
+    		// negate the amount
+    		inc.addColumn(CF, UNIQVIS_COL, amount);
+
+    	    table = connection.getTable(TableName.valueOf(TABLE_NAME));
+    		result = table.increment(inc);
+    	}
+    	finally
+    	{
+    		if(table != null)
+    			table.close();
+    	}
+    	
+		return result;
+	}
 }

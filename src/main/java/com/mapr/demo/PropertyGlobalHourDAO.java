@@ -66,11 +66,11 @@ public class PropertyGlobalHourDAO {
         }
         List<PropertyGlobalHour> query() throws IOException {
             if(validate()){
-                String startRowKey = this.accountId+"_"+this.groupId+"_"+startTime.getTime()+"_"+this.flowDir;
+                String startRowKey = this.accountId+"_"+startTime.getTime()+"_"+this.groupId+"_"+this.flowDir;
                 startRowKey = property != null ? startRowKey+"_"+this.property : startRowKey;
                 startRowKey = serviceType != null ? startRowKey+"_"+this.serviceType : startRowKey;
 
-                String endRowKey = this.accountId+"_"+this.groupId+"_"+endTime.getTime()+"_"+this.flowDir;
+                String endRowKey = this.accountId+"_"+endTime.getTime()+"_"+this.groupId+"_"+this.flowDir;
                 endRowKey = property != null ? endRowKey+"_"+this.property : endRowKey;
                 endRowKey = serviceType != null ? endRowKey+"_"+this.serviceType : endRowKey;
 
@@ -148,7 +148,7 @@ public class PropertyGlobalHourDAO {
     }
 
     private String generateRowkey(PropertyGlobalHour data) {
-        return data.getAccountId()+"_"+data.getGroupId()+"_"+data.getEpochStart()
+        return data.getAccountId()+"_"+data.getEpochStart()+"_"+data.getGroupId()
                 +"_"+data.getFlowDir()+"_"+data.getProperty()+"_"+data.getServiceType();
     }
     //To upsert/increment a unique visitors column value

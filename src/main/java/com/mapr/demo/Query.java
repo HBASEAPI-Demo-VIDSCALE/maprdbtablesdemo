@@ -22,7 +22,7 @@ public class Query {
         //args[3] - end time in MM/dd/yyyHH:mm:ss
 
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyyHH:mm:ss");
-        df.setTimeZone(TimeZone.getTimeZone("GMT-7"));
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date startdate = df.parse(args[2]);
         Date enddate = df.parse(args[3]);
 

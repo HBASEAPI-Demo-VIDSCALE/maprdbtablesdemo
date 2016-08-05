@@ -17,21 +17,24 @@ public class Query {
 
     public static void main(String args[]) throws IOException, ParseException {
         //args[0] - account id
-        //args[1] - group id
-        //args[2] - start time in MM/dd/yyyHH:mm:ss
-        //args[3] - end time in MM/dd/yyyHH:mm:ss
+        //args[1] - start time in MM/dd/yyyHH:mm:ss
+        //args[2] - end time in MM/dd/yyyHH:mm:ss
+        //args[3] - group id (optional)
 
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyyHH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date startdate = df.parse(args[2]);
-        Date enddate = df.parse(args[3]);
+        Date startdate = df.parse(args[1]);
+        Date enddate = df.parse(args[2]);
 
         PropertyGlobalHourDAO.QueryBuilder builder = new PropertyGlobalHourDAO.QueryBuilder(
                 ConnectionFactory.createConnection(HBaseConfiguration.create()))
                 .withAccountId(Integer.parseInt(args[0]))
-                .withGroupId(Integer.parseInt(args[1]))
-                .withTimeRange(startdate,enddate)
-                .withFlowdir("out");
+                .withTimeRange(startdate,enddate);
+
+        if(args.length > 3) {
+            builder.withGroupId(Integer.parseInt(args[3]));
+            builder.withFlowdir("out");
+        }
 
         List<PropertyGlobalHour> result = builder.query();
 

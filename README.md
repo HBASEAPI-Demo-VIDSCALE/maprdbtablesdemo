@@ -10,6 +10,6 @@ $ java -cp \`mapr classpath\`:/tmp/uber-maprdbtablesdemo-0.1.jar com.mapr.demo.D
 
 2) Query - queries the above table for a given key range
 
-The Query needs foour parameters account id, group id, start time and end time (time in MM/dd/yyyHH:mm:ss in GMT time)
+The Query needs three parameters account id, start time and end time (time in MM/dd/yyyHH:mm:ss in GMT time)
 
-$ java -cp \`mapr classpath\`:/tmp/uber-maprdbtablesdemo-0.1.jar com.mapr.demo.Query 20005 20006 07/14/201617:00:00 07/14/201618:00:00
+$ java -cp \`mapr classpath\`:/tmp/uber-maprdbtablesdemo-0.1.jar com.mapr.demo.Query 20005 07/14/201617:00:00 07/14/201618:00:00

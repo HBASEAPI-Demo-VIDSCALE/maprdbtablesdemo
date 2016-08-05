@@ -66,11 +66,15 @@ public class PropertyGlobalHourDAO {
         }
         List<PropertyGlobalHour> query() throws IOException {
             if(validate()){
-                String startRowKey = this.accountId+"_"+startTime.getTime()+"_"+this.groupId+"_"+this.flowDir;
+                String startRowKey = this.accountId+"_"+startTime.getTime();
+                startRowKey = groupId != -1 ? startRowKey+"_"+this.groupId : startRowKey;
+                startRowKey = flowDir != null ? startRowKey+"_"+this.flowDir : startRowKey;
                 startRowKey = property != null ? startRowKey+"_"+this.property : startRowKey;
                 startRowKey = serviceType != null ? startRowKey+"_"+this.serviceType : startRowKey;
 
-                String endRowKey = this.accountId+"_"+endTime.getTime()+"_"+this.groupId+"_"+this.flowDir;
+                String endRowKey = this.accountId+"_"+endTime.getTime();
+                endRowKey = groupId != -1 ? endRowKey+"_"+this.groupId : endRowKey;
+                endRowKey = flowDir != null ? endRowKey+"_"+this.flowDir : endRowKey;
                 endRowKey = property != null ? endRowKey+"_"+this.property : endRowKey;
                 endRowKey = serviceType != null ? endRowKey+"_"+this.serviceType : endRowKey;
 
@@ -84,7 +88,7 @@ public class PropertyGlobalHourDAO {
         }
 
         private boolean validate() {
-            if(accountId != -1 && groupId != -1 && startTime != null && endTime !=null && flowDir != null)
+            if(accountId != -1 && startTime != null && endTime !=null )
                 return true;
             return false;
         }
